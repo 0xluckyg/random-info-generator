@@ -6,7 +6,8 @@ class App extends Component {
     super(props)
 
     this.state = {
-      name: ''
+      name: '',
+      gender: ''
     }
 
     this.createInfo = this.createInfo.bind(this)
@@ -18,8 +19,9 @@ class App extends Component {
     axios.get(url)
       .then(res => {
         let info = res.data.results[0]        
+        console.log(info)
         this.setState({
-          name: info.name.first + " " + info.name.last
+          name: info.name.first + " " + info.name.last          
         })
       })
 	}
