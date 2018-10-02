@@ -6,10 +6,10 @@ class App extends Component {
     super(props)
 
     this.state = {
-      name: '',
+      name: [],
       gender: '',
       country: 'United States',
-      date: ''
+      date: []
     }
 
     this.createInfo = this.createInfo.bind(this)
@@ -32,9 +32,12 @@ class App extends Component {
     function formatDate(date) {
       let d = date.toString().split("/")
       let hour = getRandomArbitrary(6, 23)
+      hour = ('0' + hour).slice(-2)
       let min = getRandomArbitrary(0, 60)
+      min = ('0' + min).slice(-2)
       let sec = getRandomArbitrary(0, 60)
-      let formated = d[2] + "-" + d[1] + "-" + d[0] + " " + hour + ":" + min + ":" + sec
+      sec = ('0' + sec).slice(-2)
+      let formated = ('0' + d[2]).slice(-2) + "-" + ('0' + d[0]).slice(-2) + "-" +('0' + d[1]).slice(-2) + " " + hour + ":" + min + ":" + sec
 
 
       return formated
@@ -50,28 +53,38 @@ class App extends Component {
 }
 
 
-	createInfo() {
-		let url = 'https://randomuser.me/api/?nat=us'
+	createInfo(num) {
+    console.log(num)
+    if (num == 0) {
+      return 
+    }
+    let url = 'https://randomuser.me/api/?nat=us'
     axios.get(url)
       .then(res => {
         let info = res.data.results[0]        
         console.log(info)
         let first = info.name.first.charAt(0).toUpperCase() + info.name.first.slice(1)
         let last = info.name.last.charAt(0).toUpperCase() + info.name.last.slice(1)
-        let date = this.randomDate('02/13/2015', '10/18/2018')
-        this.setState({
-          name: first + " " + last,
-          date
-        })
+        let date = this.randomDate('02/13/2015', '10/05/2018')
+        this.setState(prevState => ({            
+          name: [...prevState.name, first + " " + last],
+          date: [...prevState.date, date]
+        }))
+      }).then(() => {
+        this.createInfo(num - 1)
       })
 	}
 
 	render() {
 		return (
 			<div className="App">
-				<button style={divStyle} onClick={this.createInfo}>Create info</button>
-        <p>{this.state.name}</p>
-        <p>{this.state.date}</p>
+				<button style={divStyle} onClick={() => this.createInfo(52)}>Create info</button><br/>
+        {this.state.name.map(n => {
+          return <span style={{lineHeight: 0}}>{n}<br></br></span>
+        })} 
+        {this.state.date.map(d => {
+          return <span style={{lineHeight: 0}}>{d}<br></br></span>
+        })}                
 			</div>
 		);
 	}  
