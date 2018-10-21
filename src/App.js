@@ -37,7 +37,7 @@ class App extends Component {
       min = ('0' + min).slice(-2)
       let sec = getRandomArbitrary(0, 60)
       sec = ('0' + sec).slice(-2)
-      let formated = ('0' + d[2]).slice(-2) + "-" + ('0' + d[0]).slice(-2) + "-" +('0' + d[1]).slice(-2) + " " + hour + ":" + min + ":" + sec
+      let formated = '20'+('0' + d[2]).slice(-2) + "-" + ('0' + d[0]).slice(-2) + "-" +('0' + d[1]).slice(-2) + " " + hour + ":" + min + ":" + sec
 
 
       return formated
@@ -66,7 +66,7 @@ class App extends Component {
         let first = info.name.first.charAt(0).toUpperCase() + info.name.first.slice(1)
         let last = info.name.last.charAt(0).toUpperCase() + info.name.last.slice(1)
         let date = this.randomDate('02/13/2015', '10/05/2018')
-        this.setState(prevState => ({            
+        this.setState(prevState => ({
           name: [...prevState.name, first + " " + last],
           date: [...prevState.date, date]
         }))
@@ -78,7 +78,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<button style={divStyle} onClick={() => this.createInfo(52)}>Create info</button><br/>
+				<button style={divStyle} onClick={() => this.createInfo(125)}>Create info</button><br/>
         {this.state.name.map(n => {
           return <span style={{lineHeight: 0}}>{n}<br></br></span>
         })} 
