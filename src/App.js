@@ -65,7 +65,7 @@ class App extends Component {
         console.log(info)
         let first = info.name.first.charAt(0).toUpperCase() + info.name.first.slice(1)
         let last = info.name.last.charAt(0).toUpperCase() + info.name.last.slice(1)
-        let date = this.randomDate('02/13/2015', '10/05/2018')
+        let date = this.randomDate('11/13/2017', '10/22/2018')
         this.setState(prevState => ({
           name: [...prevState.name, first + " " + last],
           date: [...prevState.date, date]
